@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="">
+
+
+<!-- <script src="https://browser.sentry-cdn.com/5.12.1/bundle.min.js" integrity="sha384-y+an4eARFKvjzOivf/Z7JtMJhaN6b+lLQ5oFbBbUwZNNVir39cYtkjW1r6Xjbxg3" crossorigin="anonymous"></script>
+<script src="https://browser.sentry-cdn.com/5.12.1/captureconsole.min.js"></script> -->
+
+
+<header class="embed-hide">
+    <!-- <div class="twosl"><a href="https://2sl.covidsl.com/"  target="_blank" style="">Share Your <span class="red_color">Needs</span> in 2SL</a></div> -->
+    <!-- <div class="twosl">Notice: <span class="red_color">
+        To Epidemiology Unit, Ministry of Health, Please release non-sensitive patient data such as detected city, city of residence, etc.
+    </span>
+        <hr/>
+    </div> -->
+    <div class="lang-picker">
+        <a href="for-covid-patients.html" class="menubutton" data-si="රෝගීන් සඳහා" data-ta="நோயாளிகளுக்கு"
+           data-en="For Patients">For Patients</a>
+        <a href="#" style="">&nbsp; &nbsp;</a> |
+
+        <a href="#" data-lang-picker="si" style="">සිං</a> |
+        <a href="#" data-lang-picker="ta" style="">தமி</a> |
+        <a href="#" data-lang-picker="en" style="">En</a>
+    </div>
+
+
+    <h1 data-si="ශ්&zwj;රී ලංකාවේ COVID-19 පැතිරීම පිළිබඳව නවතම තත්ත්වය"
+        data-ta="இலங்கை COVID-19 கொரோனா நோய்க்கிருமி பரம்பலின் நேரடித்தரவுகள்"
+        data-en="Sri Lanka COVID-19 Coronavirus Tracker">Sri Lanka COVID-19 Coronavirus Tracker</h1>
+    <div>
+        <em>
+            <span data-si="යොමුවන්න &nbsp; " data-ta="பார்வையிட &nbsp; " data-en="  View our ">  View our </span><a
+                data-si="රෝගීන් පිළිබඳව සජීවී දත්ත ගබඩාව" data-ta="நோயாளர்களின் விபரம் பற்றிய  நேரடி தரவுத்தளம்"
+                href="https://docs.google.com/spreadsheets/d/1zIgPU0ZlYkiKaavYAUcHKgEP95jdaMaf9ljJgRqtog4/edit"
+                target="_blank" data-en="live patient database">live patient database</a>
+        </em>
+    </div>
+    <div>
+        <em>
+            <span data-si="අවසන් වරට යාවත්කාලීන කල වෙලාව: " data-ta="இறுதியாக புதுப்பிக்கப்பட்டது: "
+                  data-en="Last Updated: ">Last Updated: </span> <strong id="last-updated">Feb 18, 8:00 AM</strong>
+        </em>
+    </div>
+</header>
+
+<section id="kpi">
+
+    <div id="kpi-active" data-tippy-content="Confirmed cases - (Recovered + Deaths)" data-tippy-placement="bottom">
+        <div class="diff">( +0 )</div>
+        <div class="value">23452</div>
+        <div class="label" data-si="සක්&zwj;රීය" data-ta="சிகிச்சையின் கீழ்" data-en="Active ⓘ">Active <sup>ⓘ</sup>
+        </div>
+    </div>
+    <div id="kpi-critical">
+        <div class="diff">( +0 )</div>
+        <div class="value">33</div>
+        <div class="label" data-si="අසාධ්&zwj;ය" data-ta="கடுமையானவை" data-en="Critical">Critical</div>
+    </div>
+    <div id="kpi-deceased" data-tippy-content="Deaths (CFR - Case Fatality Rate)">
+        <div class="diff">( +26 )</div>
+        <div class="value-deceasedpercentage">
+            <div class="lds-dual-ringsa value">15621</div>
+            <span class="deceasedpercentage " id="kpi-deceasedpercentage"> &nbsp;(<span
+                    class="value">0.54</span>%)</span>
+        </div>
+        <div class="label" data-si="මරණ" data-ta="இறப்புகள்" data-en="Deaths ⓘ">Deaths <sup>ⓘ</sup></div>
+    </div>
+
+
+    <div id="kpi-tested"
+         data-tippy-content="&quot;Tested&quot; may include duplicates due to transfers between hospitals"
+         data-tippy-placement="bottom">
+        <div class="diff">( NaN )</div>
+        <div class="value-hositalized">
+            <div class="lds-dual-ringa value">NaN</div>
+            <span class="hositalized">&nbsp; (20412)</span>
+        </div>
+        <div class="label" data-si="පරීක්ෂාවට ලක් වූ (රෝහල්ගත වූ)" data-ta="பரிசோதிக்கப்பட்டவை (அனுமதிக்கப்பட்டவை)"
+             data-en="Tested ⓘ  (Admitted)">Tested <sup>ⓘ </sup><span> (Admitted)</span></div>
+    </div>
+    <div id="kpi-confirmed">
+        <div class="diff">( +1298 )</div>
+        <div class="value">620732</div>
+        <div class="label" data-si="තහවුරු වූ" data-ta="உறுதி" data-en="Confirmed">Confirmed</div>
+    </div>
+    <div id="kpi-recovered">
+        <div class="diff">( +0 )</div>
+        <div class="value">581659</div>
+        <div class="label" data-si="සුවය ලැබූ" data-ta="குணமடைந்தவை" data-en="Recovered">Recovered</div>
+    </div>
+
+    <p class="embed-show " data-si="" data-ta="" data-en="ඔබට කොරො&zwj;්නා වෛරසය ආසාදනය වු විට දින 5 සිට 10 දක්වා වැදගත් වන්නේ ඇයි?
+
+    "><a href="https://covidsl.com/for-covid-patients.html" target="_blank">ඔබට කොරො&zwj;්නා වෛරසය ආසාදනය වු විට දින 5
+        සිට 10 දක්වා වැදගත් වන්නේ ඇයි?</a>
+
+    </p></section>
+
+<section id="map-container-outer" class="embed-hide">
+    <div class="center-offset">
+        <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்" data-en="COVID-19 Outbreak Map">
+            <span class="embed-hidea">COVID-19 </span>Outbreak Map</h4>
+    </div>
+    <div><img class="map_img" src="https://isankadn.github.io/static/moh_area_map.jpg" alt="MOH area map"></div>
+    <a name="map"></a>
+    <!-- <div style="margin: auto; ">
+        <div id="map" style="width: 100%; height: 50vh; border: 1px solid #AAA;margin: auto;"></div>
+        <span>(experimental map)</span>
+    </div> -->
+</section>
+
+<!-- OLD MAP -->
+
+<!-- <div class="center-offset">
+    <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்"><span class="embed-hidea">COVID-19 </span>Outbreak Map</h4>
+</div>
+<section id="map-legend">
+    <div><span class="one">▉</span> <span data-si="1-10 රෝගීන්" data-ta="1-10 நோயாளர்கள்">1-10 cases</span></div>
+    <div><span class="two">▉</span> <span data-si="11-25 රෝගීන්" data-ta="11-25 நோயாளர்கள்">11-25 cases</span></div>
+    <div><span class="three">▉</span> <span data-si="26-50 රෝගීන්" data-ta="26-50 நோயாளர்கள்">26-50 cases</span></div>
+    <div><span class="four">▉</span> <span data-si="51+ රෝගීන්" data-ta="51+ நோயாளர்கள்">51+ cases</span></div>
+</section>
+
+<div id="map-container"></div>
+</section> -->
+
+
+<!-- END OF OLD MAP -->
+
+
+<section id="chart-legend-container" class="">
+    <h4 data-si="පැතිරයාමේ ප්&zwj;රවණතාවය" data-ta="நோய்ப்பரம்பலின் போக்கு" data-en="Outbreak Spread Trend">Outbreak
+        Spread Trend</h4>
+
+
+    <div id="chart-legend">
+        <div><span class="one">▉</span> <span data-si="රෝගීන්" data-ta="நோயாளர்கள்" data-en="Cases">Cases</span></div>
+        <div><span class="four">▉</span> <span data-si="සක්&zwj;රීය" data-ta="சிகிச்சையின் கீழ்"
+                                               data-en="Active">Active</span></div>
+        <div><span class="two">▉</span> <span data-si="සුවය ලැබූ රෝගීන්" data-ta="குணமடைந்தவை" data-en="Recovered">Recovered</span>
+        </div>
+        <div><span class="three">▉</span> <span data-si="මරණ" data-ta="இறப்புகள்" data-en="Deaths">Deaths</span></div>
+
+    </div>
+</section>
+
+<section id="trend-chart-container" class="">
+    <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+        </div>
+        <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+        </div>
+    </div>
+    <canvas id="trend-chart" style="display: block; height: 325px; width: 650px;" width="812" height="406"
+            class="chartjs-render-monitor"></canvas>
+</section>
+<section id="chart-legend-container1" class="">
+    <h4 data-si="දිනපතා වැඩි වීම සහ සුවය ලැබූ රෝගීන්" data-ta="தினசரி அதிகரிப்பு / குணமடைந்தவை"
+        data-en="Daily Increase &amp; Recovered">Daily Increase &amp; Recovered</h4>
+    <!-- <div id="chart-legend">
+
+    <div><span class="four">▉</span> <span data-si="දිනපතා වැඩි වීම" data-ta="தினசரி அதிகரிப்பு">Daily
+            Increase</span></div>
+</div> -->
+</section>
+<section id="trend-chart-container2" class="">
+    <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+        </div>
+        <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+        </div>
+    </div>
+    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px;width: 98%">
+        <i class="fa fa-calendar"></i>
+        <button style="box-shadow: inset 0px 1px 0px 0px #a4e271; background: linear-gradient(to bottom, #039427 5%, #039427 100%); background-color: #039427; border-radius: 6px; border: 1px solid #74b807; display: inline-block; cursor: pointer; color: #ffffff; font-family: Arial; font-size: 15px; font-weight: bold; padding: 6px 24px; text-decoration: none; text-shadow: 0px 1px 0px #528009;">
+            Select Date Range
+        </button>
+        <br><span id="reportrangespan" style="font-size: 12px;">January 10, 2022 - February 8, 2022</span> <i
+            class="fa fa-caret-down"></i>
+    </div>
+    <input hidden="" name="range-start" class="range-start" id="range-start" value="Mon Jan 10 2022 20:30:04 GMT+0530">
+    <input hidden="" name="range-end" class="range-end" id="range-end" value="Tue Feb 08 2022 20:30:04 GMT+0530">
+
+    <script type="text/javascript">
+        $(function () {
+
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function cb(start, end) {
+                document.getElementById("range-start").setAttribute('value', start);
+                document.getElementById("range-end").setAttribute('value', end);
+
+                var element = document.getElementById('range-start');
+                var event = new Event('change');
+                element.dispatchEvent(event);
+
+                $('#reportrange #reportrangespan').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+            }
+
+            $('#reportrange').daterangepicker({
+
+                startDate: start,
+                endDate: end,
+                ranges: {
+
+                    'Last 7 Days': [moment().subtract(7, 'days'), moment().add(1, 'days')],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment().add(1, 'days')],
+                    'This Month': [moment().startOf('month'), moment().endOf('month').add(1, 'days')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month').add(1, 'days')],
+                    'Last 2 Months': [moment().subtract(60, 'days').startOf('days'), moment().add(1, 'days')],
+                    'Start to Today ': [new Date('March 1, 2020'), moment().endOf('month')]
+                }
+            }, cb);
+
+            cb(start, end);
+            // console.log(start.format('YYYY-MM-DD') , end.format('YYYY-MM-DD') )
+
+
+        });
+    </script>
+    <canvas id="trend-chart-daily-increase" width="812" height="406"
+            style="display: block; height: 325px; width: 650px;" class="chartjs-render-monitor"></canvas>
+</section>
+<section>
+    <p class="embed-show footer-credit" data-si="" data-ta="" data-en="Powered by covidsl.com
+        ">Powered by <a href="https://covidsl.com" target="_blank">covidsl.com</a>
+    </p>
+</section>
+
+<section class="embed-hide">
+    <h4 data-si="දිස්ත්&zwj;රික්ක මට්ටමේ දත්ත" data-ta="மாவட்ட ரீதியான தரவு" data-en="District Data">District Data</h4>
+    <table id="prefectures-table">
+        <thead>
+        <tr>
+            <th data-si="දිස්ත්&zwj;රික්කය" data-ta="மாவட்டம்" data-en="District">District</th>
+            <th data-si="රෝගීන්" data-ta="நோயாளர்கள்" data-en="Cases">Cases</th>
+            <th data-si="සුවය ලැබූ රෝගීන්" data-ta="குணமடைந்தவை" data-en="Recovered">Recovered</th>
+            <th data-si="මරණ" data-ta="இறப்புகள்" data-en="Deaths">Deaths</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Overseas Arrivals (Quarantine Centers)</td>
+            <td>1377</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Naval Base - Welisara</td>
+            <td>906</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Kandakadu Rehabilitation Center</td>
+            <td>521</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Gampaha</td>
+            <td>370</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Colombo</td>
+            <td>160</td>
+            <td>2</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Quarantine Centers</td>
+            <td>78</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Senapura Rehabilitation Center</td>
+            <td>76</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Kalutara</td>
+            <td>65</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Puttalam</td>
+            <td>41</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Kurunegala</td>
+            <td>27</td>
+            <td>0</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Jaffna</td>
+            <td>16</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Kandy</td>
+            <td>15</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Anuradhapura</td>
+            <td>12</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Kegalle</td>
+            <td>8</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Ratnapura</td>
+            <td>8</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Moneragala</td>
+            <td>4</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Ampara</td>
+            <td>3</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Badulla</td>
+            <td>3</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Hambantota</td>
+            <td>3</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Matara</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Trincomalee</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Vavuniya</td>
+            <td>2</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Batticaloa</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Galle</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Matale</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Nuwara Eliya</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Polonnaruwa</td>
+            <td>1</td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td><em>Unspecified</em></td>
+            <td>4</td>
+            <td>131</td>
+            <td>0</td>
+        </tr>
+        <tr class="totals">
+            <td>Total</td>
+            <td>77906</td>
+            <td>71176</td>
+            <td>422</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="embed-hide">
+    <h4 data-si="රෝහල් සම්බන්ධයෙන් වූ දත්ත (මූලාශ්&zwj;රය : සෞඛ්&zwj;ය ප්&zwj;රවර්ධන කාර්යාංශය)"
+        data-ta="மருத்துவமனைத் தரவு (சுகாதார மேம்பாட்டு பணியகத்திலிருந்து நேரடியாக)"
+        data-en="Hospital Data (directly from Health Promotion Bureau)">Hospital Data (directly from Health Promotion
+        Bureau)</h4>
+    <table id="hospital-table">
+        <thead>
+        <tr>
+            <th data-si="රෝහල" data-ta="மருத்துவமனையின் பெயர்" data-en="Hospital">Hospital</th>
+            <th data-si="පරීක්ෂාවට ලක් වූ (එකතුව)" data-ta="பரிசோதிக்கப்பட்டவை (மொத்தம்)" data-en="Tested (Total)*">
+                Tested (Total)*
+            </th>
+            <th data-si="ප්&zwj;රතිකාර ලැබුවන් (එකතුව)" data-ta="சிகிச்சையளிக்கப்பட்டவை (மொத்தம்)"
+                data-en="Treatment (Total)**">Treatment (Total)**
+            </th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <br>
+    <p data-si="* පරීක්ෂාවට ලක් වූ" data-ta="* பரிசோதிக்கப்பட்டவை" class="note-hospital"
+       data-en="* Tested = Being tested ">* Tested = Being tested </p>
+    <p data-si="** ප්&zwj;රතිකාර ලැබුවන් (එකතුව)" data-ta="**சிகிச்சையளிக்கப்பட்டவை (மொத்தம்)" class="note-hospital"
+       data-en="** Treatment = Admitted to hospitals ">** Treatment = Admitted to hospitals </p>
+</section>
+
+<!-- Donation start -->
+<section>
+
+    <h4 data-si="පරිත්&zwj;යාග කරන්න" data-ta="நன்கொடை அளிக்க ஒரு தாழ்மையான கோரிக்கை"
+        data-en="A Humble Request to Donate ">A Humble Request to Donate </h4>
+    <p>
+        COVIDSL project is running as a non-profit community initiative with the support of a handful of volunteers.
+        Thus far we have been enabling general public in and outside of Sri Lanka with readily available data channels
+        and increase awareness of the COVID
+        19 pandemic.</p>
+    <p>As our enthusiastic and supportive follower base, we welcome anyone who is capable of making a donation for this
+        cause to support us continue our journey.</p>
+
+
+    <p></p>
+    <div id="smart-button-container">
+        <div style="text-align: center;">
+            <div style="margin-bottom: 1.25rem;">
+                <p>Please select your donation amount.</p>
+                <select style="padding: 0.5rem;" id="item-options">
+                    <option value="Donate" price="5">Donate - 5 USD</option>
+                    <option value="Donate" price="10">Donate - 10 USD</option>
+                    <option value="Donate" price="50">Donate - 50 USD</option>
+                    <option value="Donate" price="100">Donate - 100 USD</option>
+                </select>
+                <select style="visibility: hidden" id="quantitySelect"></select>
+            </div>
+            <div id="paypal-button-container">
+                <div id="zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq"
+                     class="paypal-buttons paypal-buttons-context-iframe paypal-buttons-label-paypal paypal-buttons-layout-vertical"
+                     data-paypal-smart-button-version="5.0.280"
+                     style="height: 168px; transition: all 0.2s ease-in-out 0s;">
+                    <style nonce="">
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq {
+                            position: relative;
+                            display: inline-block;
+                            width: 100%;
+                            min-height: 35px;
+                            min-width: 200px;
+                            max-width: 750px;
+                            font-size: 0;
+                        }
+
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq > iframe {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
+
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq > iframe.component-frame {
+                            z-index: 100;
+                        }
+
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq > iframe.prerender-frame {
+                            transition: opacity .2s linear;
+                            z-index: 200;
+                        }
+
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq > iframe.visible {
+                            opacity: 1;
+                        }
+
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq > iframe.invisible {
+                            opacity: 0;
+                            pointer-events: none;
+                        }
+
+                        #zoid-paypal-buttons-uid_f01ea9b7b5_mtu6mda6mdq > .smart-menu {
+                            position: absolute;
+                            z-index: 300;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                        }
+                    </style>
+                    <iframe allowtransparency="true"
+                            name="__zoid__paypal_buttons__eyJzZW5kZXIiOnsiZG9tYWluIjoiaHR0cHM6Ly9jb3ZpZHNsLmNvbSJ9LCJtZXRhRGF0YSI6eyJ3aW5kb3dSZWYiOnsidHlwZSI6InBhcmVudCIsImRpc3RhbmNlIjowfX0sInJlZmVyZW5jZSI6eyJ0eXBlIjoicmF3IiwidmFsIjoie1widWlkXCI6XCJ6b2lkLXBheXBhbC1idXR0b25zLXVpZF9mMDFlYTliN2I1X210dTZtZGE2bWRxXCIsXCJjb250ZXh0XCI6XCJpZnJhbWVcIixcInRhZ1wiOlwicGF5cGFsLWJ1dHRvbnNcIixcImNoaWxkRG9tYWluTWF0Y2hcIjp7XCJfX3R5cGVfX1wiOlwicmVnZXhcIixcIl9fdmFsX19cIjpcIlxcXFwucGF5cGFsXFxcXC4oY29tfGNuKSg6XFxcXGQrKT8kXCJ9LFwidmVyc2lvblwiOlwiOV8wXzg2XCIsXCJwcm9wc1wiOntcInN0eWxlXCI6e1wibGFiZWxcIjpcInBheXBhbFwiLFwibGF5b3V0XCI6XCJ2ZXJ0aWNhbFwiLFwiY29sb3JcIjpcImdvbGRcIixcInNoYXBlXCI6XCJwaWxsXCIsXCJ0YWdsaW5lXCI6ZmFsc2UsXCJoZWlnaHRcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwicGVyaW9kXCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcIm1lbnVQbGFjZW1lbnRcIjpcImJlbG93XCJ9LFwiY3JlYXRlT3JkZXJcIjp7XCJfX3R5cGVfX1wiOlwiY3Jvc3NfZG9tYWluX2Z1bmN0aW9uXCIsXCJfX3ZhbF9fXCI6e1wiaWRcIjpcInVpZF9hOGJkZjExZDE2X210dTZtZGE2bWRxXCIsXCJuYW1lXCI6XCJjcmVhdGVPcmRlclwifX0sXCJvbkFwcHJvdmVcIjp7XCJfX3R5cGVfX1wiOlwiY3Jvc3NfZG9tYWluX2Z1bmN0aW9uXCIsXCJfX3ZhbF9fXCI6e1wiaWRcIjpcInVpZF9jZGIxY2JmOWNkX210dTZtZGE2bWRxXCIsXCJuYW1lXCI6XCJvbkFwcHJvdmVcIn19LFwiY3NwTm9uY2VcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwiZnVuZGluZ1NvdXJjZVwiOntcIl9fdHlwZV9fXCI6XCJ1bmRlZmluZWRcIn0sXCJzdG9yYWdlU3RhdGVcIjp7XCJnZXRcIjp7XCJfX3R5cGVfX1wiOlwiY3Jvc3NfZG9tYWluX2Z1bmN0aW9uXCIsXCJfX3ZhbF9fXCI6e1wiaWRcIjpcInVpZF84NjM5ZTE5YWQ3X210dTZtZGE2bWRxXCIsXCJuYW1lXCI6XCJnZXRcIn19LFwic2V0XCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfYThiYjdkZDlmMl9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwic2V0XCJ9fX0sXCJzZXNzaW9uU3RhdGVcIjp7XCJnZXRcIjp7XCJfX3R5cGVfX1wiOlwiY3Jvc3NfZG9tYWluX2Z1bmN0aW9uXCIsXCJfX3ZhbF9fXCI6e1wiaWRcIjpcInVpZF8yZmYxYjNkYzcyX210dTZtZGE2bWRxXCIsXCJuYW1lXCI6XCJnZXRcIn19LFwic2V0XCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfMmE5YTM3NzI4Zl9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwic2V0XCJ9fX0sXCJjb21wb25lbnRzXCI6W1wiYnV0dG9uc1wiXSxcImxvY2FsZVwiOntcImNvdW50cnlcIjpcIkdCXCIsXCJsYW5nXCI6XCJlblwifSxcImNyZWF0ZUJpbGxpbmdBZ3JlZW1lbnRcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwiY3JlYXRlU3Vic2NyaXB0aW9uXCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcIm9uU2hpcHBpbmdDaGFuZ2VcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwib25DYW5jZWxcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwib25DbGlja1wiOntcIl9fdHlwZV9fXCI6XCJ1bmRlZmluZWRcIn0sXCJnZXRQcmVyZW5kZXJEZXRhaWxzXCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfNTI3ZDQwNzkwZV9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwiZ2V0UHJlcmVuZGVyRGV0YWlsc1wifX0sXCJnZXRQb3B1cEJyaWRnZVwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkX2M1ZjZhM2UxZGFfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcImdldFBvcHVwQnJpZGdlXCJ9fSxcIm9uSW5pdFwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkX2ZkOTRmMGJhNTZfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcIm9uSW5pdFwifX0sXCJnZXRRdWVyaWVkRWxpZ2libGVGdW5kaW5nXCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfYmM1MTkyZGNkYl9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwiZ2V0UXVlcmllZEVsaWdpYmxlRnVuZGluZ1wifX0sXCJjbGllbnRJRFwiOlwiQVRwZC1qM05ocExmUVFDLVkxWlAzbXNFRGRsRXR0X0VnU1JEdWtIMnhwNDNEMDl1ckYxOVUtaHpwQmVVdE5zZFBjN2FXek9ZMHhMVkdrVFdcIixcImNsaWVudEFjY2Vzc1Rva2VuXCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcInBhcnRuZXJBdHRyaWJ1dGlvbklEXCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcImVuYWJsZVRocmVlRG9tYWluU2VjdXJlXCI6ZmFsc2UsXCJzZGtDb3JyZWxhdGlvbklEXCI6XCJhNDg3MWE2ZTU0MDhmXCIsXCJzdG9yYWdlSURcIjpcInVpZF8wMDgyZDU3NTM1X210bTZuZGk2bXRpXCIsXCJzZXNzaW9uSURcIjpcInVpZF82NjU0MzY3YTVmX210cTZudGs2bWprXCIsXCJidXR0b25TZXNzaW9uSURcIjpcInVpZF8zOWEyZGQwMzQ5X210dTZtZGE2bWRxXCIsXCJlbmFibGVWYXVsdFwiOntcIl9fdHlwZV9fXCI6XCJ1bmRlZmluZWRcIn0sXCJlbnZcIjpcInByb2R1Y3Rpb25cIixcImFtb3VudFwiOntcIl9fdHlwZV9fXCI6XCJ1bmRlZmluZWRcIn0sXCJzdGFnZUhvc3RcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwiYnV0dG9uU2l6ZVwiOlwiaHVnZVwiLFwiYXBpU3RhZ2VIb3N0XCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcImZ1bmRpbmdFbGlnaWJpbGl0eVwiOntcInBheXBhbFwiOntcImVsaWdpYmxlXCI6dHJ1ZSxcInZhdWx0YWJsZVwiOmZhbHNlfSxcInBheWxhdGVyXCI6e1wiZWxpZ2libGVcIjpmYWxzZSxcIm1lcmNoYW50Q29uZmlnSGFzaFwiOlwiXCIsXCJwcm9kdWN0c1wiOntcInBheUluNFwiOntcImVsaWdpYmxlXCI6ZmFsc2UsXCJ2YXJpYW50XCI6bnVsbH0sXCJwYXlsYXRlclwiOntcImVsaWdpYmxlXCI6ZmFsc2UsXCJ2YXJpYW50XCI6bnVsbH19fSxcImNhcmRcIjp7XCJlbGlnaWJsZVwiOnRydWUsXCJicmFuZGVkXCI6dHJ1ZSxcImluc3RhbGxtZW50c1wiOmZhbHNlLFwidmVuZG9yc1wiOntcInZpc2FcIjp7XCJlbGlnaWJsZVwiOnRydWUsXCJ2YXVsdGFibGVcIjp0cnVlfSxcIm1hc3RlcmNhcmRcIjp7XCJlbGlnaWJsZVwiOnRydWUsXCJ2YXVsdGFibGVcIjp0cnVlfSxcImFtZXhcIjp7XCJlbGlnaWJsZVwiOnRydWUsXCJ2YXVsdGFibGVcIjp0cnVlfSxcImRpc2NvdmVyXCI6e1wiZWxpZ2libGVcIjpmYWxzZSxcInZhdWx0YWJsZVwiOnRydWV9LFwiaGlwZXJcIjp7XCJlbGlnaWJsZVwiOmZhbHNlLFwidmF1bHRhYmxlXCI6ZmFsc2V9LFwiZWxvXCI6e1wiZWxpZ2libGVcIjpmYWxzZSxcInZhdWx0YWJsZVwiOnRydWV9LFwiamNiXCI6e1wiZWxpZ2libGVcIjpmYWxzZSxcInZhdWx0YWJsZVwiOnRydWV9fSxcImd1ZXN0RW5hYmxlZFwiOmZhbHNlfSxcInZlbm1vXCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJpdGF1XCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJjcmVkaXRcIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcImFwcGxlcGF5XCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJzZXBhXCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJpZGVhbFwiOntcImVsaWdpYmxlXCI6ZmFsc2V9LFwiYmFuY29udGFjdFwiOntcImVsaWdpYmxlXCI6ZmFsc2V9LFwiZ2lyb3BheVwiOntcImVsaWdpYmxlXCI6ZmFsc2V9LFwiZXBzXCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJzb2ZvcnRcIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcIm15YmFua1wiOntcImVsaWdpYmxlXCI6ZmFsc2V9LFwicDI0XCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJ6aW1wbGVyXCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJ3ZWNoYXRwYXlcIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcInBheXVcIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcImJsaWtcIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcInRydXN0bHlcIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcIm94eG9cIjp7XCJlbGlnaWJsZVwiOmZhbHNlfSxcIm1heGltYVwiOntcImVsaWdpYmxlXCI6ZmFsc2V9LFwiYm9sZXRvXCI6e1wiZWxpZ2libGVcIjpmYWxzZX0sXCJtZXJjYWRvcGFnb1wiOntcImVsaWdpYmxlXCI6ZmFsc2V9fSxcInBsYXRmb3JtXCI6XCJkZXNrdG9wXCIsXCJyZW1lbWJlcmVkXCI6W10sXCJleHBlcmltZW50XCI6e1wiZW5hYmxlVmVubW9cIjpmYWxzZSxcImRpc2FibGVQYXlsYXRlclwiOmZhbHNlLFwiZW5hYmxlVmVubW9BcHBMYWJlbFwiOmZhbHNlfSxcImZsb3dcIjpcInB1cmNoYXNlXCIsXCJyZW1lbWJlclwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkXzQ0YTRhMzQyOTdfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcInJlbWVtYmVyXCJ9fSxcImN1cnJlbmN5XCI6XCJVU0RcIixcImludGVudFwiOlwiY2FwdHVyZVwiLFwiYnV5ZXJDb3VudHJ5XCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcImNvbW1pdFwiOnRydWUsXCJ2YXVsdFwiOmZhbHNlLFwiZW5hYmxlRnVuZGluZ1wiOltdLFwiZGlzYWJsZUZ1bmRpbmdcIjpbXSxcImRpc2FibGVDYXJkXCI6W10sXCJtZXJjaGFudElEXCI6W10sXCJyZW5kZXJlZEJ1dHRvbnNcIjpbXCJwYXlwYWxcIixcImNhcmRcIl0sXCJjc3BcIjp7XCJub25jZVwiOlwiXCJ9LFwibm9uY2VcIjpcIlwiLFwiZ2V0UGFnZVVybFwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkXzg3ZjdlODA3M2VfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcImdldFBhZ2VVcmxcIn19LFwidXNlcklEVG9rZW5cIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwiY2xpZW50TWV0YWRhdGFJRFwiOntcIl9fdHlwZV9fXCI6XCJ1bmRlZmluZWRcIn0sXCJkZWJ1Z1wiOmZhbHNlLFwidGVzdFwiOntcImFjdGlvblwiOlwiY2hlY2tvdXRcIn0sXCJ3YWxsZXRcIjp7XCJfX3R5cGVfX1wiOlwidW5kZWZpbmVkXCJ9LFwicGF5bWVudE1ldGhvZE5vbmNlXCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcInBheW1lbnRNZXRob2RUb2tlblwiOntcIl9fdHlwZV9fXCI6XCJ1bmRlZmluZWRcIn0sXCJicmFuZGVkXCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcImFwcGxlUGF5U3VwcG9ydFwiOmZhbHNlLFwic3VwcG9ydHNQb3B1cHNcIjp0cnVlLFwic3VwcG9ydGVkTmF0aXZlQnJvd3NlclwiOmZhbHNlLFwidXNlckV4cGVyaWVuY2VGbG93XCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcImFwcGxlUGF5XCI6e1wiX190eXBlX19cIjpcInVuZGVmaW5lZFwifSxcImFsbG93QmlsbGluZ1BheW1lbnRzXCI6dHJ1ZX0sXCJleHBvcnRzXCI6e1wiaW5pdFwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkX2QxZTEzMjY5ZDFfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcImluaXRcIn19LFwiY2xvc2VcIjp7XCJfX3R5cGVfX1wiOlwiY3Jvc3NfZG9tYWluX2Z1bmN0aW9uXCIsXCJfX3ZhbF9fXCI6e1wiaWRcIjpcInVpZF9hM2E2Nzc5NDE2X210dTZtZGE2bWRxXCIsXCJuYW1lXCI6XCJjbG9zZTo6bWVtb2l6ZWRcIn19LFwiY2hlY2tDbG9zZVwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkX2RkOWFlMTUwMjlfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcImNoZWNrQ2xvc2VcIn19LFwicmVzaXplXCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfNTRhM2NkYTNlZV9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwiTmVcIn19LFwib25FcnJvclwiOntcIl9fdHlwZV9fXCI6XCJjcm9zc19kb21haW5fZnVuY3Rpb25cIixcIl9fdmFsX19cIjp7XCJpZFwiOlwidWlkXzUwZWE4ODI0ODdfbXR1Nm1kYTZtZHFcIixcIm5hbWVcIjpcIkRlXCJ9fSxcInNob3dcIjp7XCJfX3R5cGVfX1wiOlwiY3Jvc3NfZG9tYWluX2Z1bmN0aW9uXCIsXCJfX3ZhbF9fXCI6e1wiaWRcIjpcInVpZF81Y2E2ZGRiYjkwX210dTZtZGE2bWRxXCIsXCJuYW1lXCI6XCJoZVwifX0sXCJoaWRlXCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfODRhYTQyZmRhMF9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwibWVcIn19LFwiZXhwb3J0XCI6e1wiX190eXBlX19cIjpcImNyb3NzX2RvbWFpbl9mdW5jdGlvblwiLFwiX192YWxfX1wiOntcImlkXCI6XCJ1aWRfNjA5NDRlYzBjYV9tdHU2bWRhNm1kcVwiLFwibmFtZVwiOlwiQmVcIn19fX0ifX0__"
+                            title="PayPal" allowpaymentrequest="allowpaymentrequest" scrolling="no"
+                            id="jsx-iframe-bfcd901f0d" class="component-frame visible"
+                            style="background-color: transparent; border: none;"></iframe>
+                    <div id="smart-menu" class="smart-menu"></div>
+                    <div id="installments-modal" class="installments-modal"></div>
+                    <iframe name="__detect_close_uid_7720a69d00_mtu6mda6mdq__" style="display: none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=ATpd-j3NhpLfQQC-Y1ZP3msEDdlEtt_EgSRDukH2xp43D09urF19U-hzpBeUtNsdPc7aWzOY0xLVGkTW&amp;currency=USD"
+            data-sdk-integration-source="button-factory" data-uid-auto="uid_mvhxthxhxeamwlrsaugkgjxdfrjjzs"></script>
+    <script>
+        function initPayPalButton() {
+            var shipping = 0;
+            var itemOptions = document.querySelector("#smart-button-container #item-options");
+            var quantity = parseInt();
+            var quantitySelect = document.querySelector("#smart-button-container #quantitySelect");
+            if (!isNaN(quantity)) {
+                quantitySelect.style.visibility = "visible";
+            }
+            var orderDescription = 'Please select your donation amount.';
+            if (orderDescription === '') {
+                orderDescription = 'Item';
+            }
+            paypal.Buttons({
+                style: {
+                    shape: 'pill',
+                    color: 'gold',
+                    layout: 'vertical',
+                    label: 'paypal',
+
+                },
+                createOrder: function (data, actions) {
+                    var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
+                    var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
+                    var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0) / 100));
+                    if (quantitySelect.options.length > 0) {
+                        quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
+                    } else {
+                        quantity = 1;
+                    }
+
+                    tax *= quantity;
+                    tax = Math.round(tax * 100) / 100;
+                    var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+                    priceTotal = Math.round(priceTotal * 100) / 100;
+                    var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+
+                    return actions.order.create({
+                        purchase_units: [{
+                            description: orderDescription,
+                            amount: {
+                                currency_code: 'USD',
+                                value: priceTotal,
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: itemTotalValue,
+                                    },
+                                    shipping: {
+                                        currency_code: 'USD',
+                                        value: shipping,
+                                    },
+                                    tax_total: {
+                                        currency_code: 'USD',
+                                        value: tax,
+                                    }
+                                }
+                            },
+                            items: [{
+                                name: selectedItemDescription,
+                                unit_amount: {
+                                    currency_code: 'USD',
+                                    value: selectedItemPrice,
+                                },
+                                quantity: quantity
+                            }]
+                        }]
+                    });
+                },
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    });
+                },
+                onError: function (err) {
+                    console.log(err);
+                },
+            }).render('#paypal-button-container');
+        }
+
+        initPayPalButton();
+    </script>
+
+
+</section>
+<!-- Donation end -->
+
+
+<section id="helpful-links" class="embed-hide">
+    <a name="links"></a>
+    <h4 data-si="වැදගත් සබැඳියන්" data-ta="பயனுள்ள இணைப்புகள்" data-en="Helpful Links">Helpful Links</h4>
+    <ul>
+        <li>
+            <span data-si="සෞඛ්&zwj;යය ප්&zwj;රවර්ධන කාර්යාංශය" data-ta="சுகாதார மேம்பாட்டு பணியகம்"
+                  data-en="Health Promotion Bureau">Health Promotion Bureau</span><br>
+            <a href="http://hpb.health.gov.lk/covid-19" target="_blank">http://hpb.health.gov.lk/covid-19</a>
+        </li>
+        <li>
+            <span data-si="ලෝක සෞඛ්&zwj;යය සංවිධානය - ශ්&zwj;රී ලංකාව" data-ta="உலக சுகாதார அமைப்பு - இலங்கை"
+                  data-en=" WHO Sri Lanka"> WHO Sri Lanka</span><br>
+            <a href=" https://www.who.int/srilanka/covid-19" target="_blank">https://www.who.int/srilanka/covid-19</a>
+        </li>
+        <li>
+            <span data-si="නිරෝධායන ඒකකය" data-ta="தனிமைப்படுத்தல் பிரிவு"
+                  data-en="Quarantine Unit">Quarantine Unit</span><br>
+            <a href="http://www.quarantine.health.gov.lk/index.php?lang=en" target="_blank">http://www.quarantine.health.gov.lk/index.php?lang=en</a>
+        </li>
+        <li>
+            <span data-si="වෛරසය පිළිබඳව තතු - ලෝක සෞඛ්&zwj;යය සංවිධානය"
+                  data-ta="உலக சுகாதார அமைப்பு - நோய்க்கிருமி பற்றிய தகவல்" data-en="WHO information about the virus">WHO information about the virus</span><br>
+            <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">https://www.who.int/emergencies/diseases/novel-coronavirus-2019</a>
+        </li>
+        <li>
+            <span data-si="ලෝක සෞඛ්&zwj;යය සංවිධානය - ගිනිකොණදිග ආසියාව"
+                  data-ta="உலக சுகாதார அமைப்பு - தென்கிழக்கு ஆசியா"
+                  data-en=" WHO South East Asia "> WHO South East Asia </span><br>
+            <a href="https://www.who.int/southeastasia" target="_blank">https://www.who.int/southeastasia</a>
+        </li>
+
+    </ul>
+
+    <br>
+    <h4 data-si="ප්&zwj;රාථමික දත්ත ප්&zwj;රභවයන්" data-ta="முதன்மை தரவு மூலங்கள்" data-en="Primary Data Sources">
+        Primary Data Sources</h4>
+    <ul>
+        <li><span data-si="වසංගත රෝග විද්&zwj;යා අංශය" data-ta="தொற்றுநோய்ப் பிரிவு" data-en="Epidemiology Unit">Epidemiology Unit</span><br><a
+                href="http://www.epid.gov.lk/web/" target="_blank">http://www.epid.gov.lk/web/</a></li>
+        <li><span data-si="සෞඛ්&zwj;යය ප්&zwj;රවර්ධන කාර්යාංශය" data-ta="சுகாதார மேம்பாட்டு பணியகம்"
+                  data-en="Health Promotion Bureau">Health Promotion Bureau</span><br> <a
+                href="http://hpb.health.gov.lk/covid-19" target="_blank">http://hpb.health.gov.lk/covid-19</a>
+        </li>
+        <li><span data-si="රාජ්&zwj;ය තොරතුරු දෙපාර්තමේන්තුව" data-ta="அரச தகவல் திணைக்களம்"
+                  data-en="Department Of Government Information">Department Of Government Information</span><br><a
+                href="https://www.dgi.gov.lk/" target="_blank">https://www.dgi.gov.lk/</a></li>
+    </ul>
+    <br>
+    <h4 data-si="ඔබගේ වෙබ් අඩවියට යාගත කිරීමට" data-ta="உங்கள் தளத்திற்குள் உள்ளீடு செய்வதற்கு"
+        data-en="Embed to your Site">Embed to your Site</h4>
+    <ul>
+        <li><a href="http://covidsl.com/embed.html" target="_blank">http://covidsl.com/embed.html</a></li>
+
+    </ul>
+    <xmp style="overflow: auto;">
+        <iframe name='Framename' src='http://covidsl.com/embed.html' width='100%'
+         height='600 ' frameborder='0 ' scrolling='auto '></iframe></xmp>
+
+</section>
+
+
+<footer>
+
+
+    <p data-si="විමසීම් : පියුමල් මල්ලව ආරච්චි (+94 776 124 256 | dpiumal[at]gmail.com)"
+       data-ta="தொடர்பு: பியுமல் மல்லவ ஆராச்சி (+94 776 124 256 | dpiumal[at]gmail.com)" class="footer-credit" data-en="
+            Contact: Piumal Mallawa Arachchi (+94 776 124 256 | dpiumal[at]gmail.com)
+        ">
+        Contact: Piumal Mallawa Arachchi (+94 776 124 256 | dpiumal[at]gmail.com)
+    </p>
+    <p class="footer-credit">
+        <span data-si="සැකසුම් කටයුතු සහ පවත්වාගෙන යාම: " data-ta="கட்டமைப்பு மற்றும் பராமரிப்பு: "
+              data-en=" Built and maintained by "> Built and maintained by </span>
+        <a data-si="ඉසංක විජේරත්න." data-ta="இசங்க விஜேரத்ன." href="https://twitter.com/isankadn" target="_blank"
+           data-en="Isanka Wijerathne">Isanka Wijerathne</a>
+        <span class="embed-hide" data-si=" " data-ta=" " data-en="using codes of ">using codes of </span>
+        <a class="embed-hide" data-si=" " data-ta=" " href="https://github.com/reustle/covid19japan" target="_blank"
+           data-en="covid19japan">covid19japan</a>
+        <span class="embed-hide" data-si=" " data-ta=" " data-en="repository. ">repository. </span>
+    </p>
+
+    <!-- <p class="footer-credit">
+        <span  data-si="සිතියම් සඳහා දායකත්වය දැක්වූ " data-ta="எங்கள் வரைபடத்துக்கு  பங்களிப்பு செய்த " >Thank you to </span>
+        <a href="https://www.mapbox.com/" target="_blank"> Mapbox </a>
+        <span  data-si=" වෙත අපගේ විශේෂ ස්තූතිය." data-ta=" நிறுவனத்திற்கு நன்றி"> for sponsoring our map.</span>
+    </p> -->
+</footer>
+
+<!-- JS -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" /> -->
+
+<!-- <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin=""></script> -->
+<!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script> -->
+<script src="https://cdn.jsdelivr.net/combine/npm/moment@2.24.0/moment.min.js,npm/chart.js@2.9.4,npm/lodash@4.17.15/lodash.min.js,npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
+
+
+<!-- old map related -->
+<!-- <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css" rel="stylesheet" /> -->
+
+<!-- end of old map related -->
+
+
+<!-- <script type='text/javascript ' src='https://isankadn.github.io/static/markers.js '></script> -->
+<!-- <script type='text/javascript ' src='static/maps/leaf-demo.js '></script> -->
+<script type="text/javascript" src="/index.js"></script>
+<div class="daterangepicker ltr show-ranges opensright">
+    <div class="ranges">
+        <ul>
+            <li data-range-key="Last 7 Days">Last 7 Days</li>
+            <li data-range-key="Last 30 Days">Last 30 Days</li>
+            <li data-range-key="This Month">This Month</li>
+            <li data-range-key="Last Month">Last Month</li>
+            <li data-range-key="Last 2 Months">Last 2 Months</li>
+            <li data-range-key="Start to Today ">Start to Today</li>
+            <li data-range-key="Custom Range">Custom Range</li>
+        </ul>
+    </div>
+    <div class="drp-calendar left">
+        <div class="calendar-table"></div>
+        <div class="calendar-time" style="display: none;"></div>
+    </div>
+    <div class="drp-calendar right">
+        <div class="calendar-table"></div>
+        <div class="calendar-time" style="display: none;"></div>
+    </div>
+    <div class="drp-buttons"><span class="drp-selected"></span>
+        <button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button>
+        <button class="applyBtn btn btn-sm btn-primary" disabled="disabled" type="button">Apply</button>
+    </div>
+</div>
+<iframe id="paypal-offers--iframe-6554deef-db18-48ce-b4eb-23cfe07ddea4"
+        src="https://www.paypalobjects.com/muse/analytics/index.html#frameId=6554deef-db18-48ce-b4eb-23cfe07ddea4&amp;propertyId=KU7HQNBVUM4BE-1&amp;flow=visitor-info&amp;variant=analytics&amp;mrid=KU7HQNBVUM4BE&amp;isMobileEnabled=true&amp;isDesktopEnabled=true&amp;shouldCheckCountry=true&amp;mobileVariant=analytics&amp;mobileFlow=visitor-info"
+        data-merchant="KU7HQNBVUM4BE-1" style="z-index: 2147483647; display: none;"></iframe>
+</body>
+</html>

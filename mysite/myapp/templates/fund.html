@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous">
+
+
+
+<title>Covid-19</title>
+</head>
+
+<body>
+    <div class="row my-5">
+
+    </div>
+    <div class="row mx-3 my-3 justify-content-center">
+        <div class="col-sm-5">
+            <h2>Hospitals' Needs in Sri Lanka</h2>
+        </div>
+    </div>
+
+        {%extends 'base2.html' %}
+        {% block mycontent%}
+        {% if user.is_authenticated %}
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary">
+                <a href="{% url 'add_post' %}">Add Post</a>
+            </button>
+            <button type="button" class="btn btn-secondary">
+                <a href="{% url 'logout' %}">Logout</a>
+            </button>
+            {% else %}
+            If you want to post your area hospital needs, please.......
+            <button type="button" class="btn btn-secondary">
+                <a href="{% url 'register' %}">Register to the system</a>
+            </button>
+            <button type="button" class="btn btn-secondary">
+                <a href="{% url 'login' %}">Login to the system</a>
+            </button>
+            {% endif %}
+        </div>
+
+        {% load static %}
+        <div class="row mx-3 my-3">
+            {% for post in object_list %}
+            <div class="col-sm-6 mt-4">
+                <div class="card">
+                    <h5 class="card-header">{{post.title}}</h5>
+                    <div class="card-body">
+                        {{post.body|safe|truncatewords:"75"}}
+                        {{post.how_donate}}<br>
+                        {{post.post_date}}
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'update_post' post.pk %}">Edit post</a><br>
+                        <a href="{% url 'delete_post' post.pk %}">Delete post</a><br>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+</div>
+<div class="row mx-5 my-5 align-items-center justify-content-center">
+    <div class="col align-self-start">If you want to donate your donation to itukama Please........
+     <a href="https://www.itukama.lk/">Click here</a></div>
+</div>
+{% endblock %}
+</body>
+
+</html>
